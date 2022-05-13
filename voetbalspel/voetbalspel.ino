@@ -109,9 +109,21 @@ void resetGameMode0()
         ws2812fx1.setSegment(2, LED_COUNT+2, 1, FX_MODE_STATIC, BLACK, 1000, false);
         ws2812fx2.setSegment(1, LED_COUNT+1, 1, FX_MODE_STATIC, BLACK, 1000, false);
         ws2812fx2.setSegment(2, LED_COUNT+2, 1, FX_MODE_STATIC, BLACK, 1000, false);
+
         //set animation
-        ws2812fx1.setSegment(0, 0, LED_COUNT, 14, RED, 1000, false);
-        ws2812fx2.setSegment(0, 0, LED_COUNT, 14, BLUE, 1000, false);        
+        ws2812fx1.setSegment(0, 0, LED_COUNT, 14, GREEN, 1000, false);
+        ws2812fx2.setSegment(0, 0, LED_COUNT, 14, GREEN, 1000, false);  
+
+        //show scores:
+//        int ledsHealth1 = map(PL1HEALTH,0,START_HEALTH,0,LED_COUNT);
+//        int ledsHealth2 = map(PL2HEALTH,0,START_HEALTH,0,LED_COUNT);
+//
+//        ws2812fx1.setSegment(0, 0, ledsHealth2-1, FX_MODE_STATIC, BLUE, 1000, false);
+//        ws2812fx1.setSegment(1, ledsHealth2, LED_COUNT, 0, BLACK, 1000, false);
+//
+//        ws2812fx2.setSegment(0, 0, ledsHealth1-1, FX_MODE_STATIC, BLUE, 1000, false);
+//        ws2812fx2.setSegment(1, ledsHealth1, LED_COUNT, 0, BLACK, 1000, false);
+
 }
 void resetGameMode1()
 {
@@ -229,8 +241,18 @@ void loop() {
         ws2812fx2.setSegment(1, LED_COUNT+1, 1, FX_MODE_STATIC, BLACK, 1000, false);
         ws2812fx2.setSegment(2, LED_COUNT+2, 1, FX_MODE_STATIC, BLACK, 1000, false);
         //set animation
-        ws2812fx1.setSegment(0, 0, LED_COUNT, 14, RED, 1000, false);
-        ws2812fx2.setSegment(0, 0, LED_COUNT, 14, BLUE, 1000, false);
+//        ws2812fx1.setSegment(0, 0, LED_COUNT, 14, RED, 1000, false);
+//        ws2812fx2.setSegment(0, 0, LED_COUNT, 14, BLUE, 1000, false);
+
+        //show scores:
+        int ledsHealth1 = map(PL1HEALTH,0,START_HEALTH,0,LED_COUNT);
+        int ledsHealth2 = map(PL2HEALTH,0,START_HEALTH,0,LED_COUNT);
+
+        ws2812fx1.setSegment(0, 0, ledsHealth2-1, FX_MODE_STATIC, RED, 1000, false);
+        ws2812fx1.setSegment(1, ledsHealth2, LED_COUNT, 0, BLACK, 1000, false);
+
+        ws2812fx2.setSegment(0, 0, ledsHealth1-1, FX_MODE_STATIC, BLUE, 1000, false);
+        ws2812fx2.setSegment(1, ledsHealth1, LED_COUNT, 0, BLACK, 1000, false);
         break;
       case 1:
 
@@ -282,8 +304,8 @@ void PL1setLedsMode0(int theScore)
   int ledsWin = map(theScore,0,START_HEALTH,0,LED_COUNT);
   int ledsOFF = LED_COUNT - (ledsHealth2 + ledsWin);
 
-  ws2812fx1.setSegment(0, 0, ledsHealth2-1, FX_MODE_STATIC, BLUE, 1000, false);
-  ws2812fx1.setSegment(1, ledsHealth2, (ledsHealth2 + ledsWin)-1, 1, RED, 1000, false);
+  ws2812fx1.setSegment(0, 0, ledsHealth2-1, FX_MODE_STATIC, RED, 1000, false);
+  ws2812fx1.setSegment(1, ledsHealth2, (ledsHealth2 + ledsWin)-1, 1, BLUE, 1000, false);
   ws2812fx1.setSegment(2, ledsHealth2+ledsWin, LED_COUNT, 0, BLACK, 1000, false);
 }
 void PL2setLedsMode0(int theScore)
@@ -292,20 +314,20 @@ void PL2setLedsMode0(int theScore)
   int ledsWin = map(theScore,0,START_HEALTH,0,LED_COUNT);
   int ledsOFF = LED_COUNT - (ledsHealth1 + ledsWin);
 
-  ws2812fx2.setSegment(0, 0, ledsHealth1-1, FX_MODE_STATIC, RED, 1000, false);
-  ws2812fx2.setSegment(1, ledsHealth1, (ledsHealth1 + ledsWin)-1, 1, BLUE, 1000, false);
+  ws2812fx2.setSegment(0, 0, ledsHealth1-1, FX_MODE_STATIC, BLUE, 1000, false);
+  ws2812fx2.setSegment(1, ledsHealth1, (ledsHealth1 + ledsWin)-1, 1, RED, 1000, false);
   ws2812fx2.setSegment(2, ledsHealth1+ledsWin, LED_COUNT, 0, BLACK, 1000, false);
 }
 void PL1setLedsMode1()
 {
   int ledsOn = map(PL1HEALTH,0,START_HEALTH,0,LED_COUNT);
-  ws2812fx1.setSegment(0, 0, ledsOn-1, 0, RED, 1000, false);
+  ws2812fx1.setSegment(0, 0, ledsOn-1, 0, BLUE, 1000, false);
   ws2812fx1.setSegment(1, ledsOn, LED_COUNT, 0, BLACK, 1000, false);
 }
 void PL2setLedsMode1()
 {
   int ledsOn = map(PL2HEALTH,0,START_HEALTH,0,LED_COUNT);
-  ws2812fx2.setSegment(0, 0, ledsOn-1, 0, BLUE, 1000, false);
+  ws2812fx2.setSegment(0, 0, ledsOn-1, 0, RED, 1000, false);
   ws2812fx2.setSegment(1, ledsOn, LED_COUNT, 0, BLACK, 1000, false);
 }
 void PL2WIN()
@@ -319,7 +341,7 @@ void PL2WIN()
   ws2812fx2.setSegment(1, LED_COUNT+1, 1, FX_MODE_STATIC, BLACK, 1000, false);
   ws2812fx2.setSegment(2, LED_COUNT+2, 1, FX_MODE_STATIC, BLACK, 1000, false);
   //set animation
-  ws2812fx2.setSegment(0, 0, LED_COUNT, 16, BLUE, 1000, false);
+  ws2812fx2.setSegment(0, 0, LED_COUNT, 16, GREEN, 1000, false);
   ws2812fx1.setSegment(0, 0, LED_COUNT, 0, BLACK, 1000, false);
 }
 void PL1WIN()
@@ -333,7 +355,7 @@ void PL1WIN()
   ws2812fx2.setSegment(1, LED_COUNT+1, 1, FX_MODE_STATIC, BLACK, 1000, false);
   ws2812fx2.setSegment(2, LED_COUNT+2, 1, FX_MODE_STATIC, BLACK, 1000, false);
   //set animation
-  ws2812fx1.setSegment(0, 0, LED_COUNT, 16, RED, 1000, false);
+  ws2812fx1.setSegment(0, 0, LED_COUNT, 16, GREEN, 1000, false);
   ws2812fx2.setSegment(0, 0, LED_COUNT, 0, BLACK, 1000, false);
 }
 
